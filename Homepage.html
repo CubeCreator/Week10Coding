@@ -7,9 +7,38 @@
     <title>Homepage</title>
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
 </head>
-<body>
+<body class="container">
     
+    <br>
+
+    <!-- This where the inputs for the Teams on the Website will be -->
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-sm">
+                    <div class="form-group">
+                        <label for="new-team-name">Team Name</label>
+                        <input type="text" class="form-control" id="new-team-name">
+                        <label for="new-team-colour">Team Colour</label>
+                        <input type="color" value="#000000" id="new-team-colour"
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <button id="new-team-btn" class="btn btn-primary form-control">Create</button>
+        </div>
+    </div>
+   
+    <br>
+
+    <!-- Display the Teams here on the Website-->
+    <div id="teams">
+
+    </div>
+
 </body>
+<script src="Website.js"></script>
 <script src="node_modules/jquery/dist/jquery.js"></script>
-<scrupt src="node_modules/bootstrap/dist/js/bootstrap.bundle.js"></scrupt>
+<script src="node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
 </html>
