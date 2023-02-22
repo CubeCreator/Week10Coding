@@ -27,18 +27,21 @@ class Team {
 let teams = [];
 let teamId = 0;
 
-onClick('new-team', () => {
-    teams.push(new Team(teamId++, getValue('new-team-name')))
+onClick('new-team-btn', () => {
+    teams.push(new Team(teamId++, getValue('new-team-name'), getValue('new-team-colour')))
     drawDOM();
 });
 
 function onClick(id, action) {
+    console.log("id:", id, "action:", action)
     let element = document.getElementById(id);
+    console.log(element)
     element.addEventListener('click', action);
     return element
 }
 
 function getValue(id) {
+    console.log(document.getElementById(id).value)
     return document.getElementById(id).value
 }
 
@@ -46,26 +49,28 @@ function getValue(id) {
 function drawDOM() {
     let teamDiv = document.getElementById('teams')
     clearElement(teamDiv)
-    for (team of teams) {
+    for (let team of teams) {
         let table = createTeamTable(team);
         let title = document.createElement('h2')
         title.innerHTML = team.name;
+        title.className = "d-flex justify-content-between";
+        table.style.backgroundColor = team.colour;
         title.appendChild(createDeleteTeamButton(team))
         teamDiv.appendChild(title)
         teamDiv.appendChild(table)
-        for (member of team.members) {
+        for (let member of team.members) {
             createMemberRow(team, table, member)
         }
     }
 }
 
 function createMemberRow(team, table, member) {
-    let row = table.insertRow(3)
+    let row = table.insertRow(2)
     row.insertCell(0).innerHTML = member.name
     row.insertCell(1).innerHTML = member.position
     row.insertCell(2).innerHTML = member.role
-    let actions = row.insertCell(3);
-    actions.appendChild(createDeleteRowButton)
+    let actions = row.insertCell(2);
+    actions.appendChild(createDeleteRowButton(team, member))
 }
 
 function createDeleteRowButton(team, member) {
@@ -97,7 +102,7 @@ function createNewMemberButton(team) {
     btn.className = 'btn btn-primary';
     btn.innerHTML = 'Create';
     btn.onclick = () => {
-        team.member.push(new Member(getValue(`name-input-${team.id}`), getValue(`position-input-${team.id}`), getValue(`role-input-${team.id}`)));
+        team.members.push(new Member(getValue(`name-input-${team.id}`), getValue(`position-input-${team.id}`), getValue(`role-input-${team.id}`)));
         drawDOM();
     }
     return btn;
@@ -105,8 +110,8 @@ function createNewMemberButton(team) {
 
 //Table Data is Compiled Here
 function createTeamTable(team) {
-    let table = docuement.createElement('table')
-    table.setAttribute('class', 'table table-dark table-striped');
+    let table = document.createElement('table')
+    table.setAttribute('class', 'table table-striped');
     //Table Header Code
     let row = table.insertRow(0);
     let nameColumn = document.createElement('th');
