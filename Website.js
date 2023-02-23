@@ -69,7 +69,7 @@ function createMemberRow(team, table, member) {
     row.insertCell(0).innerHTML = member.name
     row.insertCell(1).innerHTML = member.position
     row.insertCell(2).innerHTML = member.role
-    let actions = row.insertCell(2);
+    let actions = row.insertCell(-1);
     actions.appendChild(createDeleteRowButton(team, member))
 }
 
@@ -123,12 +123,12 @@ function createTeamTable(team) {
     row.appendChild(nameColumn);
     row.appendChild(positionColumn);
     row.appendChild(roleColumn);
-    //Table Contents Code
     let formRow = table.insertRow(1);
     let nameTh = document.createElement('th');
     let postionTh = document.createElement('th');
     let roleTh = document.createElement('th');
     let createTh = document.createElement('th');
+    //Table Contents Code
     let nameInput = document.createElement('input');
     nameInput.setAttribute('id', `name-input-${team.id}`);
     nameInput.setAttribute('type', 'text');
@@ -137,9 +137,15 @@ function createTeamTable(team) {
     positionInput.setAttribute('id', `position-input-${team.id}`);
     positionInput.setAttribute('type', 'text');
     positionInput.setAttribute('class', 'form-control');
-    let roleInput = document.createElement('input');
+    //Dropdown Menu Code
+    let roleInput = document.createElement('select');
     roleInput.setAttribute('id', `role-input-${team.id}`);
-    roleInput.setAttribute('type', 'text');
+    roleInput.setAttribute('type', 'dropdown');
+    roleInput.appendChild(new Option ("Assault", "Assault"))
+    roleInput.appendChild(new Option ("Recon", "Recon"))
+    roleInput.appendChild(new Option ("Defense", "Defense"))
+    roleInput.appendChild(new Option ("Tank", "Tank"))
+    roleInput.appendChild(new Option ("Support", "Support"))
     roleInput.setAttribute('class', 'form-control');
     let newMemberButton = createNewMemberButton(team);
     nameTh.appendChild(nameInput);
